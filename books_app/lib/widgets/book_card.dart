@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
@@ -24,7 +21,7 @@ class BookCard extends StatelessWidget {
 
   Future<void> _launchPDF(String url, String type) async {
     final directory = await getApplicationDocumentsDirectory();
-    final filePath = '${directory.path}/${bookId}${type}';
+    final filePath = '${directory.path}/$bookId$type';
     final file = File(filePath);
     final String bookUrl = url;
 

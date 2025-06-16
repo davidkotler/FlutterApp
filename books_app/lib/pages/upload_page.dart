@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:typed_data';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({super.key});
@@ -62,6 +61,7 @@ class _UploadPageState extends State<UploadPage> {
       print('Upload error: $e');
       return null;
     }
+    return null;
   }
 
   Future<void> _uploadBook() async {

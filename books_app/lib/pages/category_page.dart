@@ -8,7 +8,7 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categories = ["Age 6-10", "Age 10-15", "Age 15-18"];
+    final categories = ["Age 0-4", "Age 4-8", "Age 8-12"];
 
     return Scaffold(
       appBar: AppBar(title: const Text("Choose Category")),

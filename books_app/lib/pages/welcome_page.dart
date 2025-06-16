@@ -13,18 +13,32 @@ class WelcomePage extends StatelessWidget {
           children: [
             Text(
               '📚 Welcome to BookApp',
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              child: const Text("Get Started"),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const CategoryPage()),
+             Image.network(
+              'https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?semt=ais_items_boosted&w=740',
+              height: 400,
+              width: 350,
+              fit: BoxFit.cover,
+            ),
+            
+            const SizedBox(height: 10),
+            SizedBox(
+              width: 250,
+              height: 50,
+              child: ElevatedButton(
+                child: const Text(
+                  "Get Started",
+                  style: TextStyle(fontSize: 28),                
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const CategoryPage()),
                 );
               },
             ),
+        ),
           ],
         ),
       ),
