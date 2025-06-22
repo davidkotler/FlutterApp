@@ -14,7 +14,7 @@ class _UploadPageState extends State<UploadPage> {
   final _formKey = GlobalKey<FormState>();
   String _title = '';
   String _author = '';
-  String _category = 'age 6-10';
+  String _category = 'Age 6-10';
   PlatformFile? _pdfFile;
   PlatformFile? _wordFile;
   bool _isUploading = false;
@@ -55,8 +55,8 @@ class _UploadPageState extends State<UploadPage> {
       const FileOptions(upsert: true);
 
       // // Get public URL
-      // final publicUrl = supabase.storage.from('books').getPublicUrl(path).data;
-      // return publicUrl;
+      final publicUrl = supabase.storage.from('books').getPublicUrl(path);
+      return publicUrl;
     } catch (e) {
       print('Upload error: $e');
       return null;
@@ -158,7 +158,7 @@ class _UploadPageState extends State<UploadPage> {
                 value: _category,
                 decoration: const InputDecoration(labelText: 'Category'),
                 items:
-                    ['age 6-10', 'age 10-15']
+                    ['Age 0-6', 'Age 6-10', 'Age 10-12']
                         .map(
                           (category) => DropdownMenuItem<String>(
                             value: category,

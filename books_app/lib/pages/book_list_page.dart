@@ -50,8 +50,8 @@ class BookListPage extends StatelessWidget {
                 bookId: book['id'], // Use the Firestore document ID
                 title: book['title'] ?? 'No Title',
                 author: book['author'] ?? 'Unknown',
-                onDownloadPdf: book['pdfUrl'] ?? '',
-                onDownloadWord: book['wordUrl'] ?? '',
+                onDownloadPdf: book['pdf_url'] ?? '',
+                onDownloadWord: book['word_url'] ?? '',
               );
             },
           );
