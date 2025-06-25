@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart'; // For kIsWeb
+import 'dart:io' as io;
 
 class UploadPage extends StatefulWidget {
   const UploadPage({super.key});
@@ -46,22 +48,42 @@ class _UploadPageState extends State<UploadPage> {
   Future<String?> _uploadFileToSupabase(String path, PlatformFile file) async {
     try {
       final supabase = Supabase.instance.client;
-      final bookFileBytes = file.bytes!;
-      // Upload file bytes
-      final response = await supabase.storage
-          .from('books') // your storage bucket name
-          .uploadBinary(path, bookFileBytes);
-      fileOptions:
-      const FileOptions(upsert: true);
 
-      // // Get public URL
+      // Load bytes differently based on platform
+      late final Uint8List fileBytes;
+
+      if (kIsWeb) {
+        if (file.bytes == null) {
+          _showError('Web: File has no bytes');
+          return null;
+        }
+        fileBytes = file.bytes!;
+      } else {
+        if (file.path == null) {
+          _showError('Android/iOS: File has no path');
+          return null;
+        }
+        final ioFile = io.File(file.path!);
+        fileBytes = await ioFile.readAsBytes();
+      }
+
+      // Upload the file
+      await supabase.storage
+          .from('books')
+          .uploadBinary(
+            path,
+            fileBytes,
+            fileOptions: const FileOptions(upsert: true), // optional
+          );
+
+      // Get public URL
       final publicUrl = supabase.storage.from('books').getPublicUrl(path);
       return publicUrl;
     } catch (e) {
+      _showError('Upload failed: $e');
       print('Upload error: $e');
       return null;
     }
-    return null;
   }
 
   Future<void> _uploadBook() async {
